@@ -1,0 +1,95 @@
+import java.util.Scanner;
+import java.util.*;
+  
+public class Erdos {
+  public static int p,n;
+  public static void main (String [ ] args) {
+            //receiveData();
+    p=4;
+    n=3;
+    String[] publications = new String[p];
+    String[][] names = new String[n][2];
+    publications[0] = "Smith, M.N., Martin, G., Erdos, P.: Newtonian forms of prime factors";
+    publications[1] = "Erdos, P., Reisig, W.: Stuttering in petri nets";
+    publications[2] = "Smith, M.N., Chen, X.: First order derivates in structured programming";
+    publications[3] = "Jablonski, T., Hsueh, Z.: Selfstabilizing data structures";
+    for(int i=0;i<p;i++){
+      String[] parts = publications[i].split(":");
+      publications[i] = parts[0];
+    }
+    List<String> pNames = new ArrayList<String>();
+    for(int i=0;i<p;i++){
+      System.out.println(publications[i]);
+      String[] pName = publications[i].split(",");
+      for(int j=0;j<pName.length;j++){
+        //System.out.println(pName[j]);
+        pNames.add(pName[j]);
+      }
+    }
+    String[] simpleArray = new String[ pNames.size() ];
+    pNames.toArray( simpleArray );
+    String[][] pCompleteNames = new String[simpleArray.length/2][2];
+    
+    for(int i=0;i<simpleArray.length/2;i++){
+      pCompleteNames[i][0] = simpleArray[i*2]+", "+ simpleArray[(i*2)+1];
+    }
+    
+    
+    names[0][0] = "Smith, M.N.";
+    names[1][0] = "Hsueh, Z.";
+    names[2][0] = "Chen, X.";
+            
+    //begin evaluation erdos
+            for(int i=0;i<pCompleteNames.length;i++){
+              for(int j=0;j<p;j++){
+                if(publications[j].indexOf("Erdos")>=0){
+                  //System.out.println(publications[j]);
+                  if(publications[j].indexOf(pCompleteNames[i][0])>=0){
+                    pCompleteNames[i][1]="1";
+                  }
+                }
+              
+              }
+            }
+            
+            for(int x=0;x<n;x++){
+              for(int y=0;y<2;y++){
+                System.out.print(pCompleteNames[x][y]);
+                System.out.print(" ");
+              }
+              System.out.println("");
+            }
+  }
+
+  public static void receiveData(){
+    System.out.println("Erdos"); //Aquí las instrucciones del método
+            //recibo la entrada y almaceno en array
+            Scanner reader = new Scanner(System.in);  // Reading from System.in
+            System.out.println("Ingrese P");
+            p = reader.nextInt(); // Scans the next token of the input as an int.
+            System.out.println("Ingrese N");
+            n = reader.nextInt(); // Scans the next token of the input as an int.
+            System.out.println(p);
+            System.out.println(n);
+            reader.nextLine();
+            String[] publications = new String[p];
+            System.out.println("Ingrese lineas P(publicaciones)");
+            for (int i = 0; i < p; i++) {
+              publications[i] = reader.nextLine();
+            }
+            
+            System.out.printf("\nYour publications:\n");
+            for (String s : publications) {
+              System.out.println(s);
+            }
+            System.out.println("Ingrese lineas N(nombres)");
+            String[] names = new String[n];
+            for (int i = 0; i < n; i++) {
+              names[i] = reader.nextLine();
+            }
+            System.out.printf("\nYour names:\n");
+            for(String s : names) {
+              System.out.println(s);
+            }
+  }
+}
